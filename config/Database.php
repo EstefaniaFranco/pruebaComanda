@@ -16,10 +16,10 @@ class Database{
 
         $capsule->addConnection([
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'comanda', //base de datos
-            'username'  => 'root',
-            'password'  => '',
+            'host'      => 'bbf16ae29f4915:6b229cc6@us-cdbr-east-02.cleardb.com',
+            'database'  => 'heroku_2e07dbb5ab1d714', //base de datos
+            'username'  => 'bbf16ae29f4915',
+            'password'  => '6b229cc6',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
