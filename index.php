@@ -37,7 +37,6 @@ $app->group('/mesa', function (RouteCollectorProxy $group) {
     $group->post('[/]', MesasController::class . ':addOne');
     $group->delete('/{id}[/]', MesasController::class . ':deleteOne');
     $group->put('/{id}[/]', MesasController::class . ':updateOne');
-
 })->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 // ABM menu

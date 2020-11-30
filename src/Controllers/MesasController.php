@@ -13,7 +13,6 @@ class MesasController{
         $mesa = new Mesa;
         $success = false;
         try {
-    
             $body = $request->getParsedBody(); 
             if($body['estado'] > 0 && $body['estado'] < 5){
                 $mesa->estado_id = $body['estado'];
