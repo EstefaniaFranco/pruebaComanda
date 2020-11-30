@@ -13,12 +13,17 @@ use App\Middlewares\ValidarLoginMiddleware;
 use App\Middlewares\ValidarDatosMiddleware;
 use App\Middlewares\ValidarTokenMiddleware;
 use App\Middlewares\IsAdminMiddleware;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
 //$app->setBasePath('/public');
 
 new Database;
+$app->get('/', function(Request $request, Response $response, $args){
+    echo('holi');
+});
 
 // Login, verifico si el usuario existente y genero el token
 $app->post('/login[/]', LoginsController::class . ':login')->add(new ValidarLoginMiddleware)->add(new JsonMiddleware);
