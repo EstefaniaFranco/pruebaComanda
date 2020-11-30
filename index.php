@@ -14,7 +14,7 @@ use App\Middlewares\ValidarDatosMiddleware;
 use App\Middlewares\ValidarTokenMiddleware;
 use App\Middlewares\IsAdminMiddleware;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . './vendor/autoload.php';
 $app = AppFactory::create();
 //$app->setBasePath('/public');
 
