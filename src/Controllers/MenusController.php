@@ -49,7 +49,6 @@ class MenusController{
         return $response;
     }
 
-
     public function updateOne(Request $request, Response $response, $args) {
         $menu = Menu::find($args['id']);
         $success = false;

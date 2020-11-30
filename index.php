@@ -5,6 +5,7 @@ use App\Controllers\MesasController;
 use App\Controllers\MenusController;
 use App\Controllers\PedidosController;
 use App\Controllers\LoginsController;
+use App\Controllers\OrdenesController;
 use Slim\Factory\AppFactory;
 use Config\Database;
 use Slim\Routing\RouteCollectorProxy;
@@ -16,7 +17,6 @@ use App\Middlewares\IsAdminMiddleware;
 
 require __DIR__ . '/vendor/autoload.php';
 $app = AppFactory::create();
-//$app->setBasePath('/public');
 
 new Database;
 
@@ -28,16 +28,16 @@ $app->group('/empleado', function (RouteCollectorProxy $group) {
     $group->post('[/]', EmpleadosController::class . ':addOne')->add(new ValidarDatosMiddleware);
     $group->delete('/{id}[/]', EmpleadosController::class . ':deleteOne');
     $group->put('/{id}[/]', EmpleadosController::class . ':updateOne');
-    $group->get('[/]', EmpleadosController::class . ':getAll');
-})->add(new JsonMiddleware);
 
-//->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)
+    $group->get('[/]', EmpleadosController::class . ':getAll');
+})->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
+
 // ABM mesas
 $app->group('/mesa', function (RouteCollectorProxy $group) {   
     $group->post('[/]', MesasController::class . ':addOne');
-    $group->post('/{id}/{delete}', MesasController::class . ':deleteOne');
-    $group->post('/{id}[/]', MesasController::class . ':updateOne');
-  //  $group->post('/{id}-{estado}[/]', MesasController::class . ':changeStatus');
+    $group->delete('/{id}[/]', MesasController::class . ':deleteOne');
+    $group->put('/{id}[/]', MesasController::class . ':updateOne');
+
 })->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 // ABM menu
@@ -45,11 +45,20 @@ $app->group('/menu', function (RouteCollectorProxy $group) {
     $group->post('[/]', MenusController::class . ':addOne');
     $group->delete('/{id}[/]', MenusController::class . ':deleteOne');
     $group->put('/{id}[/]', MenusController::class . ':updateOne');
+
 })->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
+
+//PEDIDOS
 $app->group('/pedido', function (RouteCollectorProxy $group) {   
     $group->post('[/]', PedidosController::class . ':addOne');
-    $group->post('/{cod}/{sector}[/]', PedidosController::class . ':changeStatus');
+    $group->put('/{cod}/{sector}[/]', PedidosController::class . ':changeStatus');
+
+})->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
+
+//ORDENES
+$app->group('/orden', function (RouteCollectorProxy $group) {   
+    $group->put('/{cod}-{sector}[/]', OrdenesController::class . ':changeStatus');
 
 })->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
