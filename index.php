@@ -16,7 +16,7 @@ use App\Middlewares\IsAdminMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
-$app->setBasePath('/public');
+//$app->setBasePath('/public');
 
 new Database;
 
