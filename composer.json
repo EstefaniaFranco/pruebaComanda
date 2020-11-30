@@ -10,9 +10,9 @@
     "require": {
         "slim/slim": "4.*",
         "slim/psr7": "^1.2",
-        "illuminate/database": "^7.29",
+        "illuminate/database": "^8.13",
         "firebase/php-jwt": "^5.2",
-        "illuminate/events": "^7.29"
+        "illuminate/events": "^8.13"
     },
     "autoload": {
         "psr-4": {
