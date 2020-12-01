@@ -57,29 +57,6 @@ class PedidosController{
     }
 
 
-    public function get(Request $request, Response $response, $args) {
-
-        $pedido = Pedido::find($args['codigo']);
-        $ordenes = Ordene::where('cod_pedido','=', $args['codigo'])->join('menus', 'cod_menu', '=', 'menus.id')
-        ->select('menus.precio', 'ordenes.cantidad', 'menu.nombre')->get();
-
-        // $precioFinal = 0;
-        // foreach($item as $id){       
-        //     $precioFinal += $item-> 
-        //     $orden->estado = $request->getParsedBody()['estado'];
-        //     $orden->save();
-        //     $emp->operaciones++;
-        //     $emp->save();
-        //  }
-
-        $pedido = $pedido->select('menus.nombre', 'menus.precio', 'pedido.cliente', 'ordenes.cantidad')->get();
-
-        
-
-        $response->getBody()->write(json_encode($ordenes));
-        return $response;
-    }
-
 }
 
 ?>
