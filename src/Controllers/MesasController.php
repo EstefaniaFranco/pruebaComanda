@@ -55,37 +55,41 @@ class MesasController{
     }
 
     public function updateOne(Request $request, Response $response, $args) {
-        $mesa = Mesa::find($args['id']);
-       
-    //    $response->getBody()->write( $mesa); 
-    //     $success = false;
-    //   //  $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
-
-    //     try {
-    //         $body = $request->getParsedBody(); 
-    //         $mesa->capacidad = intval($body['capacidad']) ?? $mesa->capacidad;
-
-    //         if(isset($body['estado'])){
-    //             // if($body['estado'] == 1 && $emp->tipo_id != 1){
-    //             //     $msg = 'Usted no tiene permiso para cerrar la mesa.';
-    //             // }else{
-    //                 $mesa->estado_id = $body['estado'];
-    //            // }
-    //         }      
-    //         $mesa->save();
-    //         $msg = $mesa;
-    //         $success = true;  
-    //     } catch (\Throwable $th) {
-    //         $msg = "Error: " .$th->getMessage();
-    //     }
+        $mesa = new Mesa;
+        $mesa = $mesa->find($args['id']);
     
-    //     $rta = array("success" => $success,
-    //         "mensaje" => $msg
-    //     );
+        $success = false;
+       $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
+
+        try {
+            $body = $request->getParsedBody(); 
+            $mesa->capacidad = intval($body['capacidad']) ?? $mesa->capacidad;
+
+            if(isset($body['estado'])){
+                if($body['estado'] == 1 && $emp->tipo_id != 1){
+                    $msg = 'Usted no tiene permiso para cerrar la mesa.';
+                }else{
+                   $mesa->estado_id = $body['estado'];
+               }
+            }      
+            $mesa->save();
+            $msg = $mesa;
+            $success = true;  
+        } catch (\Throwable $th) {
+            $msg = "Error: " .$th->getMessage();
+        }
+    
+        $rta = array("success" => $success,
+            "mensaje" => $msg
+        );
     
         $response->getBody()->write( json_encode($mesa)); 
         return $response;
     }
+
+
+
+
 
     public function update(Request $request,Response $response, $args) {
         $mesa = Mesa::find($args['id']);
