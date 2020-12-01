@@ -87,7 +87,7 @@ class MesasController{
         //     "mensaje" => $msg
         // );
     
-        $response->getBody()->write( json_encode($rta)); 
+        $response->getBody()->write( $rta); 
         return $response;
     }
                 

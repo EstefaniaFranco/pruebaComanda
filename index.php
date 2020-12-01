@@ -60,30 +60,5 @@ $app->group('/orden', function (RouteCollectorProxy $group) {
 
 
 
-
-
-
-// $app->group('/materia', function (RouteCollectorProxy $group) {
-
-//     //PUNTO3: Carga una materia (solo admin)
-//     $group->post('[/]', MateriasController::class . ':addMateria')->add(new CuatrimestreValidoMiddleware)->add(new IsAdminMiddleware);
-
-//     //PUNTO 7: Muestra listado de materias
-//     $group->get('[/]', MateriasController::class . ':getAll');
-
-
-// })->add(new TokenValidoMiddleware)->add(new JsonMiddleware);
-
-
-// $app->group('/inscripcion', function (RouteCollectorProxy $group) {
-
-//     //PUNTO 4: Inscripcion a materia (solo alumno)
-//     $group->post('/{id}[/]', InscripcionController::class . ':inscribirMateria')->add(new IsAlumnoMiddleware);
-
-//     //PUNTO 6: Listado de alumnos de una materia (solo admin y profesor)
-//     $group->get('/{id}[/]', InscripcionController::class . ':listadoPorMateria')->add(new IsNotAlumnoMiddleware);
-
-// })->add(new TokenValidoMiddleware)->add(new JsonMiddleware);
-
 $app->addBodyParsingMiddleware();
 $app->run();
