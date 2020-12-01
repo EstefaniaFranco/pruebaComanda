@@ -59,35 +59,35 @@ class MesasController{
         $mesa = Mesa::find($args['codigo']);
         $success = false;
         $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
-        $rta = $emp;
-        // try {
-        //     $body = $request->getParsedBody(); 
-        //     $mesa->capacidad = $body['capacidad'] ?? $mesa->capacidad;
 
-        //     if(isset($body['estado']) && $body['estado'] > 0 && $body['estado'] < 5 ){
-        //         if( $body['estado'] != 1){
-        //             $mesa->estado_id = $body['estado'];        
-        //         }else{
-        //             if($body['estado'] == 1 && $emp->tipo_id == 1){
-        //                 $mesa->estado_id = $body['estado']; 
-        //             }
-        //             else{
-        //                 $msg = 'Usted no tiene permiso para cerrar la mesa.';
-        //             }           
-        //         }
-        //     }      
-        //     $mesa->save();
-        //     $msg = $mesa;
-        //     $success = true;  
-        // } catch (\Throwable $th) {
-        //     $msg = "Error: " .$th->getMessage();
-        // }
+        try {
+            $body = $request->getParsedBody(); 
+            $mesa->capacidad = $body['capacidad'] ?? $mesa->capacidad;
+
+            if(isset($body['estado']) && ($body['estado'] > 0 && $body['estado'] < 5 )){
+                if( $body['estado'] != 1){
+                    $mesa->estado_id = $body['estado'];        
+                }else{
+                    if($body['estado'] == 1 && $emp->tipo_id == 1){
+                        $mesa->estado_id = $body['estado']; 
+                    }
+                    else{
+                        $msg = 'Usted no tiene permiso para cerrar la mesa.';
+                    }           
+                }
+            }      
+            $mesa->save();
+            $msg = $mesa;
+            $success = true;  
+        } catch (\Throwable $th) {
+            $msg = "Error: " .$th->getMessage();
+        }
     
-        // $rta = array("success" => $success,
-        //     "mensaje" => $msg
-        // );
+        $rta = array("success" => $success,
+            "mensaje" => $msg
+        );
     
-        $response->getBody()->write( $rta); 
+        $response->getBody()->write( json_encode($rta)); 
         return $response;
     }
                 
