@@ -14,22 +14,26 @@ class ValidarLoginMiddleware
         $response = new Response();
         $usuario = new Empleado;
         $body = $request->getParsedBody();
-        $id = $usuario->where('id', $body['id'])->exists();
 
-        if ($id) {
-            $mail = $usuario->where('id', $body['id'])->value('email');
-            $password = $usuario->where('id', $body['id'])->value('password');
-
-            if ($mail == $body['email'] && $password == $body['password']) {
-                $existingContent = (string) $response->getBody();
-                $response = $handler->handle($request);
-                $response->getBody()->write($existingContent);
+        if (isset($body['email']) && isset($body['id']) && isset($body['password'])) {
+            if($usuario->where('id', $body['id'])->exists()){
+                
+                $mail = $usuario->where('id', $body['id'])->value('email');
+                $password = $usuario->where('id', $body['id'])->value('password');
+    
+                if ($mail == $body['email'] && $password == $body['password']) {
+                    $existingContent = (string) $response->getBody();
+                    $response = $handler->handle($request);
+                    $response->getBody()->write($existingContent);
+                } else {
+                    $response->getBody()->write('Usuario y/o Contraseña incorrecta');
+                }
+                
             } else {
-                $response->getBody()->write('Usuario y/o Contraseña incorrecta');
+                $response->getBody()->write('Usuario inexistente');
             }
-            
         } else {
-            $response->getBody()->write('Usuario inexistente');
+            $response->getBody()->write('Faltan datos');  
         }
 
         return $response;

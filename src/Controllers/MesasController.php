@@ -18,7 +18,7 @@ class MesasController{
                 $mesa->estado_id = $body['estado'];
                 $mesa->codigo = rand(11111, 99999);
                 $mesa->capacidad = intval($body['capacidad']);  
-                $mesa = $mesa->save();
+                $mesa->save();
                 $msg = $mesa;
                 $success = true;  
             }
@@ -58,7 +58,7 @@ class MesasController{
     public function updateOne(Request $request, Response $response, $args) {
         $mesa = Mesa::find($args['id']);
         $success = false;
-        $emp = JWT::decode(getallheaders()['token'], 'key', array('HS256'));
+        $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
 
         try {
             $body = $request->getParsedBody(); 
@@ -76,7 +76,7 @@ class MesasController{
                     }           
                 }
             }      
-            $mesa =  $mesa->save();
+            $mesa->save();
             $msg = $mesa;
             $success = true;  
         } catch (\Throwable $th) {
