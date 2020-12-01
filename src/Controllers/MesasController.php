@@ -59,7 +59,7 @@ class MesasController{
         $mesa = Mesa::find($args['id']);
         $success = false;
         $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
-
+        $msg = 'estoy aca.'; 
         try {
             $body = $request->getParsedBody(); 
             $mesa->capacidad = $body['capacidad'] ?? $mesa->capacidad;
@@ -75,7 +75,8 @@ class MesasController{
                         $msg = 'Usted no tiene permiso para cerrar la mesa.';
                     }           
                 }
-            }      
+            }   
+            $msg = 'chupala.';   
             $mesa->save();
             $msg = $mesa;
             $success = true;  
