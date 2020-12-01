@@ -55,7 +55,6 @@ $app->group('/pedido', function (RouteCollectorProxy $group) {
 //ORDENES
 $app->group('/orden', function (RouteCollectorProxy $group) {   
     $group->put('/{cod}-{sector}[/]', OrdenesController::class . ':changeStatus');
-
 })->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 
