@@ -84,9 +84,16 @@ class MesasController{
     //     );
     
         $response->getBody()->write( json_encode($mesa)); 
-       return $response;
-
+        return $response;
     }
+
+    public function update(Request $request,Response $response, $args) {
+        $mesa = Mesa::find($args['id']);
+        $response->getBody()->write( json_encode($mesa)); 
+        return $response;
+       
+    }
+
                 
 }
 
