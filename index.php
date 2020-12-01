@@ -14,6 +14,7 @@ use App\Middlewares\ValidarLoginMiddleware;
 use App\Middlewares\ValidarDatosMiddleware;
 use App\Middlewares\ValidarTokenMiddleware;
 use App\Middlewares\IsAdminMiddleware;
+use App\Middlewares\AdminMozoMiddleware;
 
 require __DIR__ . '/vendor/autoload.php';
 $app = AppFactory::create();
@@ -37,7 +38,7 @@ $app->group('/mesa', function (RouteCollectorProxy $group) {
     $group->post('[/]', MesasController::class . ':addOne');
     $group->delete('/{id}[/]', MesasController::class . ':deleteOne');
     $group->put('/{id}[/]', MesasController::class . ':update' );
-})->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
+})->add(new AdminMozoMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 
 // ABM menu
@@ -52,7 +53,7 @@ $app->group('/menu', function (RouteCollectorProxy $group) {
 //PEDIDOS
 $app->group('/pedido', function (RouteCollectorProxy $group) {   
     $group->post('[/]', PedidosController::class . ':addOne');
-    $group->get('{codigo}[/]', PedidosController::class . ':get');
+    $group->get('/{codigo}[/]', PedidosController::class . ':get');
 })->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 //ORDENES
