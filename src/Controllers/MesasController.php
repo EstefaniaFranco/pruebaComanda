@@ -55,7 +55,8 @@ class MesasController{
     }
 
     public function updateOne(Request $request, Response $response, $args) {
-    //     $mesa = Mesa::find($args['id']);
+        $mesa = Mesa::find($args['id']);
+        $response->getBody()->write( $mesa); 
     //     $success = false;
     //   //  $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
 
@@ -82,9 +83,8 @@ class MesasController{
     //     );
     
     //     $response->getBody()->write( json_encode($rta)); 
-    //     return $response;
+        return $response;
 
-        echo('hola');
     }
                 
 }
