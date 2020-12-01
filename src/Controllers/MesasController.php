@@ -62,7 +62,7 @@ class MesasController{
 
         try {
             $body = $request->getParsedBody(); 
-            $mesa->capacidad = $body['capacidad'] ?? $mesa->capacidad;
+            $mesa->capacidad = intval($body['capacidad']) ?? $mesa->capacidad;
 
             if(isset($body['estado']) && ($body['estado'] > 0 && $body['estado'] < 5 )){
                 if( $body['estado'] != 1){
