@@ -10,7 +10,7 @@ class IsAdminMiddleware {
     public function __invoke(Request $request, RequestHandler $handler): Response
         {         
             $response = new Response();
-            $token = getallheaders() ['token'] ?? '';
+            $token = getallheaders() ['Token'] ?? '';
             $decoded = JWT::decode($token, 'key', array('HS256'));  
         
             if ($decoded->tipo_id == 1) {     

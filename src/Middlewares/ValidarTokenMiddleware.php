@@ -15,7 +15,7 @@ class ValidarTokenMiddleware{
     {        
         $response = new Response();        
         $headers = getallheaders();
-        $token = $headers['token'] ?? '';
+        $token = $headers['Token'] ?? '';
             
         try {
             $valido = JWT::decode($token, ValidarTokenMiddleware::$key, array('HS256'));

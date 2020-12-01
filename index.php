@@ -29,8 +29,8 @@ $app->group('/empleado', function (RouteCollectorProxy $group) {
     $group->delete('/{id}[/]', EmpleadosController::class . ':deleteOne');
     $group->put('/{id}[/]', EmpleadosController::class . ':updateOne');
     $group->get('[/]', EmpleadosController::class . ':getAll');
-})->add(new JsonMiddleware);
-//->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)
+})->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
+
 // ABM mesas
 $app->group('/mesa', function (RouteCollectorProxy $group) {   
     $group->post('[/]', MesasController::class . ':addOne');
