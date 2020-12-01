@@ -59,7 +59,10 @@ class PedidosController{
 
     public function get(Request $request, Response $response, $args) {
 
-        $pedido = Pedido::where('cod_pedido','=', $args['codigo'])->join('ordenes', 'codigo', '=', 'cod_pedido')->get();
+        $pedido = Pedido::where('cod_pedido','=', $args['codigo'])->join('ordenes', 'codigo', '=', 'cod_pedido')
+        ->join('menus', 'cod_menu', '=', 'id')->select('menus.nombre', 'menus.precio', 'pedido.cliente', 'ordenes.cantidad')->get();
+        
+
         $response->getBody()->write(json_encode($pedido));
         return $response;
     }
