@@ -56,7 +56,7 @@ class MesasController{
     }
 
     public function updateOne(Request $request, Response $response, $args) {
-        $mesa = Mesa::find($args['id']);
+        $mesa = Mesa::find($args['codigo']);
         $success = false;
         $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
         $msg = 'estoy aca.'; 
