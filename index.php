@@ -52,6 +52,7 @@ $app->group('/menu', function (RouteCollectorProxy $group) {
 //PEDIDOS
 $app->group('/pedido', function (RouteCollectorProxy $group) {   
     $group->post('[/]', PedidosController::class . ':addOne');
+    $group->get('{codigo}[/]', PedidosController::class . ':get');
 })->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 //ORDENES

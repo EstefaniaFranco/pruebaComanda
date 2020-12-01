@@ -56,6 +56,14 @@ class PedidosController{
         return $response;
     }
 
+
+    public function get(Request $request, Response $response, $args) {
+
+        $pedido = Pedido::where('cod_pedido','=', $args['codigo'])->join('ordenes', 'codigo', '=', 'cod_pedido')->get();
+        $response->getBody()->write(json_encode($pedido));
+        return $response;
+    }
+
 }
 
 ?>
