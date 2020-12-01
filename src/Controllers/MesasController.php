@@ -5,7 +5,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Models\Mesa;
 use \Firebase\JWT\JWT;
-use App\Models\Empleado;
 
 class MesasController{
 
@@ -58,23 +57,18 @@ class MesasController{
     public function updateOne(Request $request, Response $response, $args) {
         $mesa = Mesa::find($args['id']);
         $success = false;
-        $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
+      //  $emp = JWT::decode(getallheaders()['Token'], 'key', array('HS256'));
 
         try {
             $body = $request->getParsedBody(); 
             $mesa->capacidad = intval($body['capacidad']) ?? $mesa->capacidad;
 
-            if(isset($body['estado']) && ($body['estado'] > 0 && $body['estado'] < 5 )){
-                if( $body['estado'] != 1){
-                    $mesa->estado_id = $body['estado'];        
-                }else{
-                    if($body['estado'] == 1 && $emp->tipo_id == 1){
-                        $mesa->estado_id = $body['estado']; 
-                    }
-                    else{
-                        $msg = 'Usted no tiene permiso para cerrar la mesa.';
-                    }           
-                }
+            if(isset($body['estado'])){
+                // if($body['estado'] == 1 && $emp->tipo_id != 1){
+                //     $msg = 'Usted no tiene permiso para cerrar la mesa.';
+                // }else{
+                    $mesa->estado_id = $body['estado'];
+               // }
             }      
             $mesa->save();
             $msg = $mesa;
