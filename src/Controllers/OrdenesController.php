@@ -11,7 +11,7 @@ class OrdenesController{
     public function changeStatus(Request $request, Response $response, $args){    
         $success = false;           
         $emp = new Empleado;
-        $emp = $emp::find(JWT::decode(getallheaders()['token'], 'key', array('HS256'))->id);
+        $emp = $emp::find(JWT::decode(getallheaders()['Token'], 'key', array('HS256'))->id);
 
         if($emp->tipo_id == $args['sector']){
             try {
