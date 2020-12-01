@@ -93,7 +93,7 @@ class MesasController{
 
     public function update(Request $request,Response $response, $args) {
      //  $mesa = Mesa::find($args['id']);
-       $mesa = 'la puta madre';
+       $mesa = $args['id'];
         $response->getBody()->write( json_encode($mesa)); 
         return $response;
 
