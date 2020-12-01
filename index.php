@@ -32,22 +32,12 @@ $app->group('/empleado', function (RouteCollectorProxy $group) {
 })->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
 
 
-
-
-
 // ABM mesas
 $app->group('/mesa', function (RouteCollectorProxy $group) {   
     $group->post('[/]', MesasController::class . ':addOne');
-    //$group->delete('/{id}[/]', MesasController::class . ':deleteOne');
-    $group->post('/{id}[/]', MesasController::class . ':update' );
+    $group->delete('/{id}[/]', MesasController::class . ':deleteOne');
+    $group->put('/{id}[/]', MesasController::class . ':update' );
 })->add(new IsAdminMiddleware)->add(new ValidarTokenMiddleware)->add(new JsonMiddleware);
-
-
-
-
-
-
-
 
 
 // ABM menu
